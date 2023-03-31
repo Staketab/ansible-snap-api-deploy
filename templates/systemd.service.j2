@@ -1,0 +1,16 @@
+[Unit]
+Description=Java backend service
+After=network.target
+
+[Service]
+Type=simple
+User={{ deployment_user }}
+Group={{ deployment_group }}
+WorkingDirectory={{ deployment_workdir }}
+ExecStart={{ deployment_workdir }}/rest-api start
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
