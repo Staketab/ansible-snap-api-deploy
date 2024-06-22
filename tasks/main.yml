@@ -1,7 +1,7 @@
 ---
 - name: Ensure '{{ deployment_workdir }}' exists
   vars:
-    ansible_python_interpreter: /usr/bin/python3.8
+    ansible_python_interpreter: /usr/bin/python3
   ansible.builtin.file:
     path: "{{ deployment_workdir }}"
     state: directory
@@ -9,7 +9,7 @@
 
 - name: Transfer an Api artifact to the remote server
   vars:
-    ansible_python_interpreter: /usr/bin/python3.8
+    ansible_python_interpreter: /usr/bin/python3
   ansible.builtin.copy:
     src: "{{ deployment_artifact }}"
     dest: "{{ deployment_workdir }}/rest-api"
@@ -20,7 +20,7 @@
 
 - name: Create systemd service
   vars:
-    ansible_python_interpreter: /usr/bin/python3.8
+    ansible_python_interpreter: /usr/bin/python3
   ansible.builtin.template:
     src: systemd.service.j2
     dest: "/etc/systemd/system/{{ deployment_service }}.service"
@@ -31,7 +31,7 @@
 
 - name: Ensure systemd service is started and enabled
   vars:
-    ansible_python_interpreter: /usr/bin/python3.8
+    ansible_python_interpreter: /usr/bin/python3
   ansible.builtin.systemd:
     name: "{{ deployment_service }}"
     state: started
